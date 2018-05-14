@@ -1,84 +1,48 @@
-
 <?php
-
-  require(ROOT . "model/calenderModel.php");
-
+  require(ROOT . "model/CalenderModel.php");
 
   function index(){
-
     $data = GetAllBirthday();
-
     render("calender/index", array(
-      "data" => $data
+    "data" => $data
     ));
   }
 
-////////////////////////////////////////////////
-
-  function toevoegen(){
-  	render("calender/toevoegen");
+	function create(){
+  	render("calender/create");
   }
 
-
-function toevoegenSave(){
-  echo "toevoegenSave in Controller";
-  	// render("calender/toevoegen");
-  $data=array(
-		'person' => $_POST['person'],
-       'day' => $_POST['day'],
-		 'month' => $_POST['month'],
-			'year' => $_POST['year']
+function createSave(){
+  echo "createSave in Controller";
+$data=array(
+	'person' => $_POST['person'],
+	'day' => $_POST['day'],
+	'month' => $_POST['month'],
+	'year' => $_POST['year']
 		);
     createBirthday($data);
-  // lees: https://www.w3schools.com/php/php_arrays.asp
-  // Maak een array met $data met daarin de waardes uit het formulier --> ophalen via POST
-  // geef deze array ($data) mee aan createBirthday in de model
-  header('Location:' . URL . 'calender/index');
+  header('Location:' . URL . 'calender');
 }
-
-////////////////////////////////////////////
-
-
-
 function deleteThis($id){
-  deleteProgres($id);
-  header('Location:' . URL . 'calender/index');
+  deleteBirthday($id);
+  header('Location:' . URL . 'calender');
 }
-
-
-/////////////////////////////////////////////
 
 function editThis($id){
-  $data['person']= GetOneBirthday($id);
-  // var_dump($data);
+  $data['person']= GetABirthday($id);
   render("calender/edit",$data);
-
-    //enkele birthday ophalen die stuur ik mee naar edit
-    // editBirthday($data123);
-
 }
 
 function editSaveThis(){
-    // var_dump($_POST);
     $dataSafe=array(
-  		'person' => $_POST['person'],
-         'day' => $_POST['day'],
-  		 'month' => $_POST['month'],
-  			'year' => $_POST['year'],
-        'id'   => $_POST["id"]
+    'person' => $_POST['person'],
+    'day' => $_POST['day'],
+  	'month' => $_POST['month'],
+  	'year' => $_POST['year'],
+    'id'   => $_POST["id"]
     	);
     editBirthday($dataSafe);
-    header("location:" . URL . "calender/index" );
-
+    header("location:" . URL . "calender" );
 }
 
-
-
-
-
-
-
-
-
-
-?>
+  ?>

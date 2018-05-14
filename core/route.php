@@ -4,19 +4,18 @@ function route()
 {
 	// Hier wordt de functie aangeroepen die de URL op splitst op het standaard seperatie teken (in PHP is dit een /)
 	$url = splitUrl();
-	
 	// Er wordt een variable opgemaakt uit de URL, de eerste variabele wordt geplaatst in de key controller, de tweede wordt in de key action geplaatst. De overige worden in params geplaatst (als array)
-	// Als die niet bestaat, gaat hij de standaard controller inladen, welke in config.php is aangemaakt.
+	// Als die niet bestaat, gaat hij de standaard controller inladen, welke in config.php is aangemaakt. 
 	// Hierna roept hij standaard de index functie aan.
 	if (!$url['controller']) {
 		require(ROOT . 'controller/' . DEFAULT_CONTROLLER . 'Controller.php');
 		call_user_func('index');
-	// Als dat niet het geval is, dus als er wel een controller is, kijkt hij of het bestand bestaat.
+	// Als dat niet het geval is, dus als er wel een controller is, kijkt hij of het bestand bestaat. 
 	//	Vervolgens laad hij dat bestand in
 	} elseif (file_exists(ROOT . 'controller/' . $url['controller'] . '.php')) {
 		require(ROOT . 'controller/' . $url['controller'] . '.php');
-		// Vervolgens wordt er gekeken of er een functie met de naam bestaat die in de key action zit.
-		// Bijvoorbeeld: http://localhost/Students/Edit/1, dan is de action Edit.
+		// Vervolgens wordt er gekeken of er een functie met de naam bestaat die in de key action zit. 
+		// Bijvoorbeeld: http://localhost/Students/Edit/1, dan is de action Edit. 
 		// De 1 wordt als eerste 'params' geplaatst
 		// In de controller Students wordt gekeken of de function Edit bestaat.
 		if (function_exists($url['action'])) {
@@ -45,7 +44,7 @@ function splitUrl()
 	// Als er iets in de key url zit van $_GET, wordt de code uitgevoerd
 	if (isset($_GET['url'])) {
 
-
+			
 		// Met trim haal je de zwevende shlashes weg. Bijvoorbeeld:
 		// /Students/Edit/1/ wordt Students/Edit/1
 
@@ -55,7 +54,7 @@ function splitUrl()
 		$tmp_url = filter_var($tmp_url, FILTER_SANITIZE_URL);
 
 		// Met explode splits je een string op. Elk gedeelte voor de "/" wordt in een nieuwe index van een array gestopt.
-		// Bijvoorbeeld /Students/Edit/1 wordt opgedeeld in:
+		// Bijvoorbeeld /Students/Edit/1 wordt opgedeeld in: 
 		// $temp_url[0] = "Students",
 		// $temp_url[1] = "Edit",
 		// $temp_url[2] = "1"
@@ -74,6 +73,6 @@ function splitUrl()
 		$url['params'] = array_values($tmp_url);
 
 		// Dit wordt teruggegeven aan de functie
-		return $url;
-	}
+		return $url;	
+	}	
 }

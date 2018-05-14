@@ -2,5 +2,5 @@
 
 function index()
 {
-	render("calender/index");
+	render("home/index");
 }
